@@ -15,7 +15,7 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 //fog
-const fog = new THREE.Fog('#262837', 1, 15);
+const fog = new THREE.Fog('#262837', 1, 18);
 scene.fog = fog
 /**
  * Textures
@@ -126,10 +126,10 @@ scene.add(graves);
 const graveGeometry = new THREE.BoxGeometry(0.6,0.8,0.2);
 const graveMaterial = new THREE.MeshStandardMaterial({color:'#b2b6b1'});
 
-for (let i=0; i<50; i++) {
+for (let i=0; i<80; i++) {
     const angle = Math.random() * Math.PI *2;
-    const x = Math.sin(angle) * (5.5*Math.random()+3)
-    const z = Math.cos(angle) * (5.5*Math.random()+3)
+    const x = Math.sin(angle) * (12*Math.random()+3)
+    const z = Math.cos(angle) * (12*Math.random()+3)
 
     const grave = new THREE.Mesh(graveGeometry, graveMaterial);
     grave.position.x = x
@@ -142,7 +142,7 @@ for (let i=0; i<50; i++) {
 
 // Floor
 const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(20, 20),
+    new THREE.PlaneGeometry(30, 30),
     new THREE.MeshStandardMaterial({map:grassColorTexture,
         aoMap:grassAmbientOcculsionTexture,
     normalMap:grassNormalTexture,
@@ -227,6 +227,7 @@ renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor('#262837');
 renderer.shadowMap.enabled  = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
 moonLight.castShadow = true;
 doorLight.castShadow = true;
 ghost1.castShadow = true;
@@ -241,7 +242,21 @@ bush4.castShadow = true;
 
 floor.receiveShadow = true;
 
+doorLight.shadow.mapSize.width=256
+doorLight.shadow.mapSize.width=256
+doorLight.shadow.camera.far=7
 
+ghost1.shadow.mapSize.width=256
+ghost1.shadow.mapSize.width=256
+ghost1.shadow.camera.far=7
+
+ghost2.shadow.mapSize.width=256
+ghost2.shadow.mapSize.width=256
+ghost2.shadow.camera.far=7
+
+ghost3.shadow.mapSize.width=256
+ghost3.shadow.mapSize.width=256
+ghost3.shadow.camera.far=7
 
 /**
  * Animate
